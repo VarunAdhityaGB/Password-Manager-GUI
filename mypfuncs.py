@@ -10,9 +10,9 @@ import requests
 # ProjectbyVarunAdhityaGB
 ######################## CONNECTING SQL ###############################################
 mydb = sqlc.connect(
-    host="localhost",
-    user="root",
-    passwd="root",
+    host="sql5.freemysqlhosting.net",
+    user=" sql5500577",
+    passwd="DVkBU2uYi6",
 )
 mycur = mydb.cursor()
 
@@ -141,9 +141,9 @@ def emailvalidation(strg):
 
 def unamecheck(strg):
     # this finction checks whether this username already exists, if it exeist it tell the user to try a different username
-    mycur.execute("USE myp;")
+    mycur.execute("USE sql5500577;")
     username_ls = []
-    mycur.execute("SELECT userName FROM myp_users;")
+    mycur.execute("SELECT userName FROM sql5500577_users;")
 
     for i in mycur:
         username_ls.extend(i)
@@ -156,9 +156,9 @@ def unamecheck(strg):
 def emailcheck(strg):
     # this functions checks whether the email address is already
     # used ot not in our database
-    mycur.execute("USE myp;")
+    mycur.execute("USE sql5500577;")
     email_ls = []
-    mycur.execute("SELECT eMail FROM myp_users;")
+    mycur.execute("SELECT eMail FROM sql5500577_users;")
     data = mycur.fetchall()
 
     for i in data:

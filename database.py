@@ -11,9 +11,9 @@ from mypfuncs import *
 ##################################### CONNECTING MySQL ################################
 
 mydb = sqlc.connect(
-    host="localhost",
-    user="root",
-    passwd="root",
+    host="sql5.freemysqlhosting.net",
+    user="sql5500577",
+    passwd="DVkBU2uYi6",
 )
 mycur = mydb.cursor()
 
@@ -23,14 +23,14 @@ global opt_lp
 
 
 def createDB():
-    mycur.execute("CREATE DATABASE myp;")
+    mycur.execute("CREATE DATABASE sql5500577;")
 
 
 def createTbls():
-    # CREATING TWO TABLES myp_users and myp_data having a comman row userId
-    mycur.execute("USE myp;")
+    # CREATING TWO TABLES sql5500577_users and sql5500577_data having a comman row userId
+    mycur.execute("USE sql5500577;")
     mycur.execute(
-        """CREATE TABLE myp_users (
+        """CREATE TABLE sql5500577_users (
             userId INT  UNSIGNED PRIMARY KEY AUTO_INCREMENT,
             firstName VARCHAR(225) NOT NULL,
             lastName VARCHAR(225),
@@ -40,7 +40,7 @@ def createTbls():
     )
 
     mycur.execute(
-        """CREATE TABLE myp_data (
+        """CREATE TABLE sql5500577_data (
         passId INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
         website VARCHAR(625),
         loginName VARCHAR(225) NOT NULL,
@@ -50,12 +50,12 @@ def createTbls():
 
 
 def insintousers(firstName, lastName, userName, masterPass, eMail):
-    # this functions inserts data into the myp_user table
-    mycur.execute("USE myp;")
+    # this functions inserts data into the sql5500577_user table
+    mycur.execute("USE sql5500577;")
     global passu
     passu = hashcrypt(masterPass)
     action = (
-        f"""INSERT INTO myp_users (firstName, lastName, userName, eMail, masterPass)
+        f"""INSERT INTO sql5500577_users (firstName, lastName, userName, eMail, masterPass)
         VALUES ("""
         + "TRIM('" + firstName + "'), "
         + "TRIM('" + lastName + "'), '"
@@ -68,12 +68,12 @@ def insintousers(firstName, lastName, userName, masterPass, eMail):
     mydb.commit()
 
 def insintousers_eno(firstName, lastName, userName, masterPass):
-    # this functions inserts data into the myp_user table
-    mycur.execute("USE myp;")
+    # this functions inserts data into the sql5500577_user table
+    mycur.execute("USE sql5500577;")
     global passu
     passu = hashcrypt(masterPass)
     action = (
-        f"""INSERT INTO myp_users (firstName, lastName, userName, masterPass)
+        f"""INSERT INTO sql5500577_users (firstName, lastName, userName, masterPass)
         VALUES ("""
         + "TRIM('"
         + firstName
@@ -91,10 +91,10 @@ def insintousers_eno(firstName, lastName, userName, masterPass):
 
 
 def insintodata(website, loginName, loginPass, userId):
-    # this functions inserts data into the myp_data table
-    mycur.execute("USE myp;")
+    # this functions inserts data into the sql5500577_data table
+    mycur.execute("USE sql5500577;")
     action = (
-        f"""INSERT INTO myp_data (website, loginName, loginPass, userId) 
+        f"""INSERT INTO sql5500577_data (website, loginName, loginPass, userId) 
         VALUES ('"""
         + website
         + "', '"
