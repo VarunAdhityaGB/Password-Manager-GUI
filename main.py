@@ -134,7 +134,7 @@ class passwordmenu:
 
         iclick = 0
 
-        mycur.execute("SELECT passId FROM sql5500577_data WHERE userId=" + str(uid))
+        mycur.execute("SELECT passId FROM myp_data WHERE userId=" + str(uid))
         self.uiddata = mycur.fetchall()
         self.uidls = []
         for i in self.uiddata:
@@ -144,7 +144,7 @@ class passwordmenu:
 
         for uidn in self.uidls:
             mycur.execute(
-                "SELECT website, loginName, loginPass, passId FROM sql5500577_data WHERE passId="
+                "SELECT website, loginName, loginPass, passId FROM myp_data WHERE passId="
                 + str(uidn)
             )
             for data in mycur.fetchall():
@@ -227,7 +227,7 @@ class passwordmenu:
 
         def showpass(open_e):
 
-            mycur.execute("SELECT masterPass FROM sql5500577_users WHERE userId = " + str(uid))
+            mycur.execute("SELECT masterPass FROM myp_users WHERE userId = " + str(uid))
             mc_ls = []
 
             for i in mycur.fetchall():
@@ -246,7 +246,7 @@ class passwordmenu:
 
                 for uidn in self.uidls:
                     mycur.execute(
-                        "SELECT website, loginName, loginPass, passId FROM sql5500577_data WHERE passId="
+                        "SELECT website, loginName, loginPass, passId FROM myp_data WHERE passId="
                         + str(uidn)
                     )
                     for data in mycur.fetchall():
@@ -273,7 +273,7 @@ class passwordmenu:
 
                         for uidn in self.uidls:
                             mycur.execute(
-                                "SELECT website, loginName, loginPass, passId FROM sql5500577_data WHERE passId="
+                                "SELECT website, loginName, loginPass, passId FROM myp_data WHERE passId="
                                 + str(uidn)
                             )
                             for data in mycur.fetchall():
@@ -325,7 +325,7 @@ class addedit:
 
             if reps == ps:
                 mycur.execute(
-                    f"SELECT masterPass FROM sql5500577_users WHERE userId = " + str(uid)
+                    f"SELECT masterPass FROM myp_users WHERE userId = " + str(uid)
                 )
                 pass_ls = []
                 for i in mycur:
@@ -353,7 +353,7 @@ class addedit:
 
             if reps == ps:
                 mycur.execute(
-                    f"SELECT masterPass FROM sql5500577_users WHERE userId = " + str(uid)
+                    f"SELECT masterPass FROM myp_users WHERE userId = " + str(uid)
                 )
                 pass_ls = []
                 for i in mycur:
@@ -361,7 +361,7 @@ class addedit:
 
                 if hashcrypt(mps) == str(pass_ls[0]):
                     mycur.execute(
-                        "UPDATE sql5500577_data SET website = '"
+                        "UPDATE myp_data SET website = '"
                         + web
                         + "', loginName = '"
                         + un
@@ -383,7 +383,7 @@ class addedit:
 
         def revert():
             mycur.execute(
-                "SELECT website, loginName, loginPass FROM sql5500577_data WHERE passId="
+                "SELECT website, loginName, loginPass FROM myp_data WHERE passId="
                 + str(ele)
             )
             editdata = []
@@ -407,7 +407,7 @@ class addedit:
             pass_ent.insert(0, gvar)
             repass_ent.insert(0, gvar)
 
-        mycur.execute("SELECT passId FROM sql5500577_data WHERE userId = " + str(uid))
+        mycur.execute("SELECT passId FROM myp_data WHERE userId = " + str(uid))
         passids = mycur.fetchall()
         passid_ls = []
         for i in passids:
@@ -479,7 +479,7 @@ class addedit:
                     passid_int = int(id_ent.get())
                     passid = ent.get()
                     mycur.execute(
-                        f"SELECT masterPass FROM sql5500577_users WHERE userId = " + str(uid)
+                        f"SELECT masterPass FROM myp_users WHERE userId = " + str(uid)
                     )
                     pass_ls = []
                     for i in mycur:
@@ -496,7 +496,7 @@ class addedit:
                             global ele
                             ele = passid_dict[passid_int]
                             mycur.execute(
-                                "SELECT website, loginName, loginPass FROM sql5500577_data WHERE passId="
+                                "SELECT website, loginName, loginPass FROM myp_data WHERE passId="
                                 + str(ele)
                             )
                             editdata = []
@@ -640,7 +640,7 @@ def ui(uid):
         rootw()
 
     def deletedata():
-        mycur.execute("SELECT passId FROM sql5500577_data WHERE userId = " + str(uid))
+        mycur.execute("SELECT passId FROM myp_data WHERE userId = " + str(uid))
         passids = mycur.fetchall()
         passid_ls = []
         for i in passids:
@@ -656,7 +656,7 @@ def ui(uid):
         def delete(e):
             try:
                 mycur.execute(
-                    f"SELECT masterPass FROM sql5500577_users WHERE userId = " + str(uid)
+                    f"SELECT masterPass FROM myp_users WHERE userId = " + str(uid)
                 )
                 pass_ls = []
                 for i in mycur:
@@ -673,7 +673,7 @@ def ui(uid):
                     else:
                         dele = passid_dict[passid_int]
                         mycur.execute(
-                            "DELETE FROM sql5500577_data WHERE passId = " + str(dele)
+                            "DELETE FROM myp_data WHERE passId = " + str(dele)
                         )
                         mydb.commit()
                         passwordmenu(psl, str(uid), close, open_e)
@@ -736,7 +736,7 @@ def ui(uid):
             if hashcrypt(str(omp_ent.get())) == str(pass_ls[0]):
                 nps = hashcrypt(str(nmp_ent.get()))
                 mycur.execute(
-                    "UPDATE sql5500577_users SET masterPass = '"
+                    "UPDATE myp_users SET masterPass = '"
                     + nps
                     + "' WHERE userId = "
                     + str(uid)
@@ -746,7 +746,7 @@ def ui(uid):
             else:
                 messagebox.showerror("Wrong OLD Password", "Enter the correct password")
 
-        mycur.execute(f"SELECT masterPass FROM sql5500577_users WHERE userId = " + str(uid))
+        mycur.execute(f"SELECT masterPass FROM myp_users WHERE userId = " + str(uid))
         pass_ls = []
         for i in mycur:
             pass_ls.extend(i)
@@ -829,7 +829,7 @@ def ui(uid):
 
     def exp_data():
         mycur.execute(
-            "SELECT SUBSTR(website, 9)'name', website, loginName FROM sql5500577_data WHERE userId = "
+            "SELECT SUBSTR(website, 9)'name', website, loginName FROM myp_data WHERE userId = "
             + str(uid)
         )
         ls = mycur.fetchall()
@@ -841,7 +841,7 @@ def ui(uid):
             for i in range(len(ls)):
                 globals()[f"expd{i+1}"] = list(ls[i])
 
-            mycur.execute("SELECT loginPass FROM sql5500577_data WHERE userId = " + str(uid))
+            mycur.execute("SELECT loginPass FROM myp_data WHERE userId = " + str(uid))
             pls = mycur.fetchall()
             pls_ = []
             for i in pls:
@@ -865,26 +865,26 @@ def ui(uid):
         def mc_check(e):
             if hashcrypt(str(ent.get())) == str(pass_ls[0]):
                 des.destroy()
-                mycur.execute("SELECT email FROM sql5500577_users WHERE userId = " + str(uid))
+                mycur.execute("SELECT email FROM myp_users WHERE userId = " + str(uid))
                 els = mycur.fetchall()
                 for i in els:
                     if i == (None,):
                         continue
                     else:
                         byemail(i[0])
-                mycur.execute("SELECT passId FROM sql5500577_data WHERE userId = " + str(uid))
+                mycur.execute("SELECT passId FROM myp_data WHERE userId = " + str(uid))
                 dells = []
                 for i in mycur.fetchall():
                     dells.extend(i)
                 if dells != []:
                     for pid in dells:
                         mycur.execute(
-                            " DELETE FROM sql5500577_data WHERE passId = " + str(pid)
+                            " DELETE FROM myp_data WHERE passId = " + str(pid)
                         )
                     mydb.commit()
                 else:
                     pass
-                mycur.execute("DELETE FROM sql5500577_users WHERE userId = " + str(uid))
+                mycur.execute("DELETE FROM myp_users WHERE userId = " + str(uid))
                 mydb.commit()
                 psl.destroy()
                 open("cache.txt", "w")
@@ -892,7 +892,7 @@ def ui(uid):
             else:
                 messagebox.showerror("Wrong Password", "Enter the correct password")
 
-        mycur.execute(f"SELECT masterPass FROM sql5500577_users WHERE userId = " + str(uid))
+        mycur.execute(f"SELECT masterPass FROM myp_users WHERE userId = " + str(uid))
         pass_ls = []
 
         for i in mycur:
@@ -948,7 +948,7 @@ def ui(uid):
 
 
 def login_page():
-    mycur.execute("SELECT userName FROM sql5500577_users")
+    mycur.execute("SELECT userName FROM myp_users")
     data_ls = mycur.fetchall()
     ls = ["Select a Username"]
 
@@ -995,7 +995,7 @@ def login_page():
                 )
             else:
                 mycur.execute(
-                    f"SELECT userId FROM sql5500577_users WHERE userName = '{uname_srch}';"
+                    f"SELECT userId FROM myp_users WHERE userName = '{uname_srch}';"
                 )
                 user_ls = []
                 for i in mycur:
@@ -1008,7 +1008,7 @@ def login_page():
                     fileerite.write("\n")
 
                 mycur.execute(
-                    f"SELECT masterPass FROM sql5500577_users WHERE userName = '{uname_srch}';"
+                    f"SELECT masterPass FROM myp_users WHERE userName = '{uname_srch}';"
                 )
                 pass_ls = []
                 for i in mycur:

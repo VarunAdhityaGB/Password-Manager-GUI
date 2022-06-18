@@ -143,7 +143,7 @@ def unamecheck(strg):
     # this finction checks whether this username already exists, if it exeist it tell the user to try a different username
     mycur.execute("USE sql5500577;")
     username_ls = []
-    mycur.execute("SELECT userName FROM sql5500577_users;")
+    mycur.execute("SELECT userName FROM myp_users;")
 
     for i in mycur:
         username_ls.extend(i)
@@ -158,7 +158,7 @@ def emailcheck(strg):
     # used ot not in our database
     mycur.execute("USE sql5500577;")
     email_ls = []
-    mycur.execute("SELECT eMail FROM sql5500577_users;")
+    mycur.execute("SELECT eMail FROM myp_users;")
     data = mycur.fetchall()
 
     for i in data:
